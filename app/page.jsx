@@ -47,9 +47,14 @@ export default function Home() {
 
           <h2 className="text-5xl font-bold text-gray-900 mb-4 tracking-tight">Never miss a Price Drop</h2>
 
-          <p>
+          <p className="text-xl text-grey-600 mb-12 max-w-2xl mx-auto">
             Track prices from any e-commerce site. Get instant alerts when prices drop. Save money effortlessly.
           </p>
+
+          {/*Add product form*/}
+
+          {/*Features*/}
+          
         </div>
       </section>
     </main>
