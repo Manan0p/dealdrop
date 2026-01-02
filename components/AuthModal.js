@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Dialog,
   DialogContent,
@@ -6,8 +8,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button"
+import { createClient } from "@/utils/supabase/client";
 
 export function AuthModal({isOpen, onClose}) {
+    const supabase = createClient();
+
+    const handleGoogleLogin = async() => {
+        const {origin} = window.location;
+
+        await supabase.auth.signInWithOAuth({
+            provider: "google",
+            options: {
+                redirectTo: `${origin}/auth/callback`,
+            },
+        });
+    };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-md">
@@ -19,7 +35,7 @@ export function AuthModal({isOpen, onClose}) {
           </DialogHeader>
           
           <div className="flex flex-col gap-4 py-4">
-            <Button variant="outline" className="w-full gap-2" size="lg">
+            <Button onClick={handleGoogleLogin} variant="outline" className="w-full gap-2" size="lg">
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
                 fill="#4285F4"
