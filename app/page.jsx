@@ -1,4 +1,5 @@
 import AddProductForm from "@/components/AddProductForm";
+import AuthButton from "@/components/AuthButton";
 import { Button } from "@/components/ui/button";
 import { Bell, LogIn, Rabbit, Shield } from "lucide-react";
 import Image from "next/image";
@@ -35,10 +36,7 @@ export default function Home() {
             <Image src={"/deal-drop-logo.png"} alt="Deal Drop Logo" width={600} height={200} className="h-10 w-auto" />
           </div>
 
-          <Button variant="default" size="sm" className={"bg-orange-500 hover:bg-orange-600 gap-2"} >
-            <LogIn className="h-4 w-4" />
-            Sign In
-            </Button>
+          <AuthButton user={user} />
         </div>
       </header>
 
