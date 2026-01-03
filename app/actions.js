@@ -69,6 +69,9 @@ export async function addProduct(formData) {
             });
         }
 
+        revalidatePath("/");
+        return { success: true, product, message:isUpdate ? "Product updated with latest price" : "Product added successfully"};
+
     } catch (error) {
         
     }
