@@ -22,7 +22,7 @@ const AuthButton = ({user}) => {
 
   return (
     <div>
-        <Button onClick={() => setShowAuthModal(true)} variant="default" size="sm" className={"bg-orange-500 hover:bg-orange-600 gap-2"} >
+        <Button onClick={() => setShowAuthModal(true)} variant="default" size="sm" className={"bg-orange-500 hover:bg-orange-600 gap-2 dark:text-white"} >
             <LogIn className="h-4 w-4" />
             Sign In
         </Button>

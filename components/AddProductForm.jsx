@@ -26,7 +26,7 @@ const AddProductForm = ({user}) => {
           disabled={loading}
         />
 
-        <Button className={"bg-orange-500 hover:bg-orange-600 h-10 sm:h-12 px-8"} type="submit" disabled={loading} size='lg'>
+        <Button className={"bg-orange-500 hover:bg-orange-600 h-10 sm:h-12 px-8 dark:text-white"} type="submit" disabled={loading} size='lg'>
           {loading ? (
             <>
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
