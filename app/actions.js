@@ -73,6 +73,7 @@ export async function addProduct(formData) {
         return { success: true, product, message:isUpdate ? "Product updated with latest price" : "Product added successfully"};
 
     } catch (error) {
-        
+        console.error("Error adding product:", error);
+        return { error: error.message || "Failed to add product"};
     }
 }
