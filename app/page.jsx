@@ -1,5 +1,6 @@
 import AddProductForm from "@/components/AddProductForm";
 import AuthButton from "@/components/AuthButton";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { Bell, LogIn, Rabbit, Shield, TrendingDown } from "lucide-react";
@@ -39,6 +40,7 @@ export default async function Home() {
             <Image src={"/deal-drop-logo.png"} alt="Deal Drop Logo" width={600} height={200} className="h-10 w-auto" />
           </div>
 
+          <ThemeToggle />
           <AuthButton user={user} />
         </div>
       </header>
