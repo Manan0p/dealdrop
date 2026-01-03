@@ -42,6 +42,16 @@ export async function addProduct(formData) {
 
         const isUpdate = !!existingProduct;
 
+        const {data:product, error} = await supabase.from("products").upsert({
+            user_id: user.id,
+            url,
+            name: productData.productName,
+            current_price: newPrice,
+            currency: currency,
+            image_url: productData.productImageUrl,
+            updated_at: new Date().toISOString(),
+        });
+
     } catch (error) {
         
     }
