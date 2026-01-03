@@ -35,7 +35,13 @@ export async function addProduct(formData) {
             return { error: "Failed to extract product data from the URL" };
         }
 
-        
+        const newPrice = parseFloat(productData.currentPrice);
+        const currency = productData.currencyCode || "INR";
+
+        const {data:existingProduct} = await supabase.from("products").select("id, current_price").eq("url", url).eq("user_id", user.id).single();
+
+        const isUpdate = !!existingProduct;
+
     } catch (error) {
         
     }
