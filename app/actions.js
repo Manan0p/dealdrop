@@ -62,17 +62,11 @@ export async function addProduct(formData) {
         const shouldAddHistory = !isUpdate || existingProduct.current_price !== newPrice;
 
         if (shouldAddHistory) {
-            const { error: historyError } = await supabase
-                .from("price_history")
-                .insert({
-                    product_id: product.id,
-                    price: newPrice,
-                    currency: currency,
-                    user_id: user.id,
-                    checked_at: new Date().toISOString(),
-                });
-
-            if (historyError) throw historyError;
+            await supabase.from("price_history").insert({
+                product_id: product.id,
+                price: newPrice,
+                checked_at: new Date().toISOString(),
+            });
         }
 
         revalidatePath("/");
@@ -117,11 +111,7 @@ export async function getProducts(){
 export async function getPriceHistory(productId){
     try {
         const supabase = await createClient();
-        const {data, error} = await supabase
-            .from("price_history")
-            .select("*")
-            .eq("product_id", productId)
-            .order("checked_at", {ascending: true});
+        const {data, error} = await supabase.from("price_history").select("*").eq("product_id", productId).order("checked_at", {ascending: true});
 
         if (error) throw error;
         return data || [];

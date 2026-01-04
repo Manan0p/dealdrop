@@ -78,17 +78,11 @@ export async function POST(request) {
           .eq("id", product.id);
 
         if (oldPrice !== newPrice) {
-          const { error: historyError } = await supabase
-            .from("price_history")
-            .insert({
-              product_id: product.id,
-              price: newPrice,
-              currency: productData.currencyCode || product.currency,
-              user_id: product.user_id,
-              checked_at: new Date().toISOString(),
-            });
-
-          if (historyError) throw historyError;
+          await supabase.from("price_history").insert({
+            product_id: product.id,
+            price: newPrice,
+            checked_at: new Date().toISOString(),
+          });
 
           results.priceChanges++;
 
@@ -135,3 +129,5 @@ export async function GET() {
     message: "Price check endpoint is working. Use POST to trigger.",
   });
 }
+
+// curl.exe -X POST https://dealdrop-one.vercel.app/api/cron/check-prices  -H "Authorization: Bearer 4a746688c69dba10c888be241eb0309cc118a9e7e38eb2727095667cc3766efe"
