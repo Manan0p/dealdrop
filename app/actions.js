@@ -80,8 +80,17 @@ export async function addProduct(formData) {
 
 export async function deleteProduct(productId) {
     try {
-        
+        const supabase = await createClient();
+
+        const {error} = await supabase.from("products").delete().eq("id", productId);
+
+        if (error) throw error;
+
+        revalidatePath("/");
+        return { success: true };
+
     } catch (error) {
+        return { error: error.message };
         
     }
 }
