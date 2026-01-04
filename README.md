@@ -4,6 +4,12 @@
 
 **🌐 Live Demo:** https://dealdrop-one.vercel.app/
 
+## 🖼️ Screenshots
+
+![DealDrop Preview](public/Preview.png)
+
+![DealDrop Showcase](public/Showcase.png)
+
 ---
 
 ## 🎯 What This Project Does
