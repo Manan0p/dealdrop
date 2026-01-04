@@ -1,3 +1,4 @@
+import { sendPriceDropALert } from "@/lib/email";
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -73,6 +74,16 @@ export async function POST(request) {
 
                         if (user?.email){
                             // Send alert email
+                            const emailResult = await sendPriceDropALert(
+                                user.email,
+                                product,
+                                oldPrice,
+                                newPrice
+                            );
+
+                            if (emailResult.success) {
+                                results.alertsSent ++;
+                            }
                         }
                     }
                 }
