@@ -32,6 +32,12 @@ export async function POST(request) {
       throw new Error("Supabase client failed to initialize (no from method)");
     }
 
+    console.log("cron check-prices env", {
+      urlPresent: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      keyPresent: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      fromType: typeof supabase.from,
+    });
+
     const { data: products, error: productsError } = await supabase
       .from("products")
       .select("*");
