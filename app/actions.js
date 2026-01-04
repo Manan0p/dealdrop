@@ -65,6 +65,7 @@ export async function addProduct(formData) {
             await supabase.from("price_history").insert({
                 product_id: product.id,
                 price: newPrice,
+                curency: currency,
                 checked_at: new Date().toISOString(),
             });
         }

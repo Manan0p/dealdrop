@@ -84,6 +84,7 @@ export async function POST(request) {
             .insert({
               product_id: product.id,
               price: newPrice,
+              curency: productData.currencyCode || product.currency || null,
               checked_at: new Date().toISOString(),
             });
 
