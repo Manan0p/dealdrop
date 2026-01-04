@@ -81,6 +81,7 @@ export async function POST(request) {
           await supabase.from("price_history").insert({
             product_id: product.id,
             price: newPrice,
+            user_id: product.user_id,
             checked_at: new Date().toISOString(),
           });
 
