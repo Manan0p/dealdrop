@@ -4,11 +4,13 @@ import React, { useState } from 'react'
 import { Input } from './ui/input'
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
+import { AuthModal } from './AuthModal';
 
 const AddProductForm = ({user}) => {
 
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleSubmit = async (e) => {};
 
@@ -40,6 +42,7 @@ const AddProductForm = ({user}) => {
     </form>
 
     {/* Auth Modal */}
+    <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </>
   )
 }
