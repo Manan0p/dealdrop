@@ -1,12 +1,12 @@
 import AddProductForm from "@/components/AddProductForm";
 import AuthButton from "@/components/AuthButton";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import { Bell, LogIn, Rabbit, Shield, TrendingDown } from "lucide-react";
 import Image from "next/image";
 import { getProducts } from "./actions";
-import ProductCard from "@/components/product-card";
+import ProductCard from "@/components/ProductCard";
 
 export default async function Home() {
 
