@@ -65,6 +65,7 @@ export async function POST(request) {
 
         const newPrice = parseFloat(productData.currentPrice);
         const oldPrice = parseFloat(product.current_price);
+        console.log("price check", { id: product.id, oldPrice, newPrice });
 
         await supabase
           .from("products")
@@ -78,12 +79,21 @@ export async function POST(request) {
           .eq("id", product.id);
 
         if (oldPrice !== newPrice) {
-          await supabase.from("price_history").insert({
-            product_id: product.id,
-            price: newPrice,
-            user_id: product.user_id,
-            checked_at: new Date().toISOString(),
-          });
+          const { error: historyError } = await supabase
+            .from("price_history")
+            .insert({
+              product_id: product.id,
+              price: newPrice,
+              user_id: product.user_id,
+              checked_at: new Date().toISOString(),
+            });
+
+          if (historyError) {
+            console.error("price_history insert error", { productId: product.id, historyError });
+            throw historyError;
+          }
+
+          console.log("price_history inserted", { productId: product.id, price: newPrice });
 
           results.priceChanges++;
 
@@ -114,11 +124,9 @@ export async function POST(request) {
       }
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Price check completed",
-      results,
-    });
+    console.log("cron results", results);
+
+    return NextResponse.json({ success: true, message: "Price check completed", results });
   } catch (error) {
     console.error("Cron job error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

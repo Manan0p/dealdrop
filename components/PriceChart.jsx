@@ -14,7 +14,7 @@ const PriceChart = ({productId}) => {
             const history = await getPriceHistory(productId);
 
             const chartData = history.map((item) =>({
-                date: new Date(item.created_at ?? item.checked_at ?? item.inserted_at ?? Date.now()).toLocaleDateString(),
+                date: new Date(item.checked_at ?? item.created_at ?? item.inserted_at ?? Date.now()).toLocaleDateString(),
                 price: parseFloat(item.price),
             }));
 
