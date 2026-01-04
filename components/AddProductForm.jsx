@@ -12,7 +12,14 @@ const AddProductForm = ({user}) => {
   const [loading, setLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+  };
 
   return (
     <>
