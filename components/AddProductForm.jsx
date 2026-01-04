@@ -35,6 +35,8 @@ const AddProductForm = ({user}) => {
       toast.success(result.message ||"Product added successfully!");
       setUrl("");
     }
+
+    setLoading(false);
   };
 
   return (
