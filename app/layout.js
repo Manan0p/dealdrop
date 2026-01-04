@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata = {
   title: "Deal Drop",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange >
           {children}
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
