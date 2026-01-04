@@ -107,3 +107,17 @@ export async function getProducts(){
         return [];
     }
 }
+
+export async function getPriceHistory(productId){
+    try {
+        const supabase = await createClient();
+        const {data, error} = await supabase.from("price_history").select("*").eq("product_id", productId).order("recorded_at", {ascending: true});
+
+        if (error) throw error;
+        return data || [];
+
+    } catch (error) {
+        console.error("Error fetching price history:", error);
+        return [];
+    }
+}
