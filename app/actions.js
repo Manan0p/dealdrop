@@ -77,3 +77,11 @@ export async function addProduct(formData) {
         return { error: error.message || "Failed to add product"};
     }
 }
+
+export async function deleteProduct(productId) {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
