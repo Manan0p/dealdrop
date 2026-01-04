@@ -6,9 +6,9 @@
 
 ## 🖼️ Screenshots
 
-![DealDrop Preview](public/Preview.png)
-
 ![DealDrop Showcase](public/Showcase.png)
+
+![DealDrop Preview](public/Preview.png)
 
 ---
 
