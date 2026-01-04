@@ -84,7 +84,6 @@ export async function POST(request) {
             .insert({
               product_id: product.id,
               price: newPrice,
-              user_id: product.user_id,
               checked_at: new Date().toISOString(),
             });
 
