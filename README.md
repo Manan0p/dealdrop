@@ -4,9 +4,19 @@
 
 **🌐 Live Demo:** https://dealdrop-one.vercel.app/
 
-## 🖼️ Screenshots
+## 🖼️ Product Tour
+
+Here’s a quick look at the app experience — from the landing page to tracking products and monitoring price movement.
+
+### Landing + Tracking
+
+Clean landing page with sign-in, product URL input, and your tracked products in one place.
 
 ![DealDrop Showcase](public/Showcase.png)
+
+### Price Monitoring
+
+Track updates over time with saved history and charts so you can spot drops quickly.
 
 ![DealDrop Preview](public/Preview.png)
 
