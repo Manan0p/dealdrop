@@ -42,8 +42,10 @@ export default async function Home() {
             <Image src={"/DDL.png"} alt="Deal Drop Logo" width={600} height={200} className="h-10 w-auto" />
           </div>
 
-          <ThemeToggle />
-          <AuthButton user={user} />
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <AuthButton user={user} />
+          </div>
         </div>
       </header>
 
