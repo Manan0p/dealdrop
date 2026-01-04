@@ -1,94 +1,161 @@
 # DealDrop: Smart Price Tracker
 
-DealDrop tracks product prices across e-commerce sites, alerts users when prices drop, and visualizes price history. It is built with Next.js 16, Supabase auth, Firecrawl scraping, and Resend email alerts.
+**DealDrop** is a modern price tracking app that lets you save product links from e-commerce sites, automatically checks prices on a schedule, stores price history, and emails you when a price drops.
 
-## Live Demo
-- Production: https://dealdrop-one.vercel.app
+## 🎯 About DealDrop
 
-## Highlights
-- Supabase OAuth with server and browser clients, session-aware UI, and sign-out server actions
-- Add product by URL, scrape name/price/image via Firecrawl, and persist in Supabase
-- Price history table plus price-drop detection and email alerts through Resend
-- Scheduled price checks via protected cron endpoint with bearer secret
-- Responsive theming with Tailwind CSS v4, Radix primitives, and light/dark toggle
-- Recharts-based price chart component for visualizing trends
+DealDrop combines a clean Next.js App Router UI with server actions + background cron checks to make price tracking effortless. Add a product URL, and DealDrop will scrape the latest price (even on dynamic pages), keep a history of changes, and notify you when it gets cheaper.
 
-## Tech Stack
-- Next.js 16 (App Router, server components)
-- React 19
-- Tailwind CSS v4, Radix UI, lucide-react
-- Supabase (auth, data, RLS), @supabase/ssr helpers
-- Firecrawl for scraping dynamic product pages
-- Resend for transactional email
-- Recharts for charting
+## ✨ Features
 
-## Project Structure
-- app/: layout, landing page, auth callback, server actions, cron API
-- components/: UI kit (buttons, dialog, inputs, toasts), auth modal/button, theme provider, add-product form, product card, price chart
-- lib/: firecrawl scraping helper, email sending helper, utils
-- utils/supabase/: client/server/middleware helpers for Supabase sessions
-- public/: static assets (logos, icons)
+- **🔐 Secure Authentication** - Google OAuth via Supabase
+- **🔗 Track Any Product URL** - Add products by pasting a link
+- **⚡ Smart Scraping** - Extracts name, price, currency, and image using Firecrawl
+- **📉 Price History** - Stores every price change in a dedicated history table
+- **📊 Charts & Trends** - Visualize price movement with Recharts
+- **📧 Price Drop Alerts** - Sends email alerts through Resend when prices go down
+- **⏱️ Scheduled Checks** - Protected cron endpoint to update all tracked products
+- **🌙 Dark Mode Support** - Theme toggle with persisted preference
 
-## Getting Started
-1) Install dependencies
+## 🛠 Tech Stack
+
+### Frontend
+- **Next.js 16** - App Router
+- **React 19** - UI library
+- **Tailwind CSS v4** - Styling
+- **Radix UI** - Accessible primitives
+- **ShadCN UI** - Component patterns (in `components/ui`)
+- **Recharts** - Charts
+- **Lucide React** - Icons
+
+### Backend & Services
+- **Supabase** - Authentication + database
+- **@supabase/ssr** - Session-aware server/client helpers
+- **Firecrawl** - Web scraping for dynamic pages
+- **Resend** - Transactional email for alerts
+
+### Deployment
+- **Vercel** - Hosting + serverless routes
+
+## 🚀 Live Demo
+
+🔗 **DealDrop Live:** https://dealdrop-one.vercel.app/
+
+## 💻 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- npm (or yarn/pnpm)
+- Supabase project (Google OAuth enabled)
+- Firecrawl API key
+- Resend API key + verified sender
+
+### Installation
 
 ```bash
+# Install dependencies
 npm install
-```
 
-2) Add environment variables in `.env.local`
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
-SUPABASE_SERVICE_ROLE_KEY=...
-
-FIRECRAWL_API_KEY=...
-
-RESEND_API_KEY=...
-RESEND_FROM_EMAIL=alerts@yourdomain.com
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-CRON_SECRET=some-strong-token
-```
-
-3) Run the dev server
-
-```bash
+# Start dev server
 npm run dev
 ```
 
-4) Open http://localhost:3000
+Open http://localhost:3000 in your browser.
 
-## Authentication
-- Supabase OAuth configured for Google; redirect URL should include `/auth/callback` (local and production)
-- Server-side session handling lives in utils/supabase/server.js and app/auth/callback/route.js
+### Environment Variables
 
-## Price Checks and Alerts
-- Cron endpoint: POST /api/cron/check-prices with `Authorization: Bearer <CRON_SECRET>`
-- Uses Supabase service role to fetch products, scrape current price via Firecrawl, update price_history, and email when prices drop
-- Example trigger (PowerShell):
+Create a `.env.local` file:
+
+```env
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
+
+# Needed for cron job (bypasses RLS)
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Scraping
+FIRECRAWL_API_KEY=your_firecrawl_key
+
+# Email alerts
+RESEND_API_KEY=your_resend_key
+RESEND_FROM_EMAIL=your_verified_sender@domain.com
+
+# Used in email footer links
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Protects the cron endpoint
+CRON_SECRET=some_strong_random_token
+```
+
+### Supabase OAuth Redirect URLs
+
+In Supabase Auth settings, add redirect URLs:
+- `http://localhost:3000/auth/callback` (development)
+- `https://dealdrop-one.vercel.app/auth/callback` (production)
+
+## 🔑 Key Features Explained
+
+### Add Product + Scrape
+- Users paste a URL and DealDrop scrapes `productName`, `currentPrice`, `currencyCode`, and `productImageUrl` via Firecrawl
+- The product gets stored/updated in the `products` table and price changes are appended to `price_history`
+
+### Price History + Charts
+- Every time a price changes, a new row is inserted into `price_history`
+- The UI renders charts from that history to show trends over time
+
+### Price Drop Email Alerts
+- If the new price is lower than the previous price, DealDrop emails the user with savings + a link back to the product
+
+### Scheduled Price Checks (Cron)
+
+The cron endpoint is protected by a bearer secret:
+
+- **Endpoint:** `POST /api/cron/check-prices`
+- **Header:** `Authorization: Bearer <CRON_SECRET>`
+
+Example (PowerShell):
 
 ```powershell
 curl.exe -X POST https://dealdrop-one.vercel.app/api/cron/check-prices -H "Authorization: Bearer YOUR_CRON_SECRET"
 ```
 
-## Database Notes
-- Tables: products, price_history
-- On product add/update: price stored in products and optionally appended to price_history when changed
-- Price charts render history via Recharts (see components/PriceChart.jsx)
+## 🚢 Building for Production
 
-## Scripts
-- npm run dev - start development server
-- npm run build - create production build
-- npm run start - start production server
-- npm run lint - run ESLint
+```bash
+npm run build
+npm run start
+```
 
-## Deployment
-- Deploy to Vercel; set all environment variables and OAuth redirect URLs to match the deployed domain
-- Ensure `CRON_SECRET` is configured in the hosting scheduler (e.g., Vercel Cron) and passed as bearer token
+## 📝 Scripts
 
-## Roadmap Ideas
-- Add per-user notification preferences (thresholds, frequency)
-- Add product metadata validation and richer error toasts
-- Surface scrape errors and retry logic in the UI
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Copyright © 2026 Manan**
+
+## 👨‍💻 Author
+
+Built by Manan.
+
+## 🙏 Acknowledgments
+
+- Supabase for auth + database
+- Firecrawl for scraping product pages
+- Resend for powering email alerts
+- Vercel for hosting
+
+---
+
+**Ready to save money? Visit [DealDrop](https://dealdrop-one.vercel.app/) and start tracking.**
