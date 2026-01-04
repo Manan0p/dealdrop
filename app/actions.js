@@ -91,6 +91,13 @@ export async function deleteProduct(productId) {
 
     } catch (error) {
         return { error: error.message };
+    }
+}
+
+export async function getProducts(){
+    try {
+        
+    } catch (error) {
         
     }
 }
