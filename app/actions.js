@@ -111,7 +111,7 @@ export async function getProducts(){
 export async function getPriceHistory(productId){
     try {
         const supabase = await createClient();
-        const {data, error} = await supabase.from("price_history").select("*").eq("product_id", productId).order("recorded_at", {ascending: true});
+        const {data, error} = await supabase.from("price_history").select("*").eq("product_id", productId).order("checked_at", {ascending: true});
 
         if (error) throw error;
         return data || [];
