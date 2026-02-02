@@ -65,7 +65,6 @@ Perfect for learning/building:
 - **Next.js 16** - App Router
 - **React 19** - UI library
 - **Tailwind CSS v4** - Styling
-- **Radix UI** - Accessible primitives
 - **ShadCN UI** - Component patterns (in `components/ui`)
 - **Recharts** - Charts
 - **Lucide React** - Icons
